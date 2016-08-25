@@ -7,7 +7,7 @@ public class SevletSpringMVC extends AbstractAnnotationConfigDispatcherServletIn
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[]{AppWebConfiguration.class};
+		return new Class[]{AppWebConfiguration.class, JPAConfiguration.class};
 	}
 
 	@Override
