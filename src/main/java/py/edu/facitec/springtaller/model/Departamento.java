@@ -15,9 +15,6 @@ public class Departamento {
 	
 	private String descripcion;
 	
-	private List<Usuario> listaUsuario;
-	
-	private Usuario usuario;
 	
 	//Indicamos que es una relacion de uno a uno
 	@OneToOne
@@ -42,21 +39,7 @@ public class Departamento {
 		this.descripcion = descripcion;
 	}
 
-	public List<Usuario> getListaUsuario() {
-		return listaUsuario;
-	}
 
-	public void setListaUsuario(List<Usuario> listaUsuario) {
-		this.listaUsuario = listaUsuario;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	public Gerente getGerente() {
 		return gerente;
@@ -76,9 +59,10 @@ public class Departamento {
 
 	@Override
 	public String toString() {
-		return "Departamento [id=" + id + ", descripcion=" + descripcion + ", listaUsuario=" + listaUsuario
-				+ ", usuario=" + usuario + ", gerente=" + gerente + ", usuarios=" + usuarios + "]";
+		return "Departamento [id=" + id + ", descripcion=" + descripcion + ", gerente=" + gerente + ", usuarios="
+				+ usuarios + ", toString()=" + super.toString() + "]";
 	}
+
 	
 	
 }
