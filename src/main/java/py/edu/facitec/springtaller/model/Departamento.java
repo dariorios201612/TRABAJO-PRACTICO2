@@ -7,21 +7,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+
 @Entity
 public class Departamento {
+	
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
-	
 	private String descripcion;
 	
-	
-	//Indicamos que es una relacion de uno a uno
+	//indicamos que la relacion es de uno a uno
 	@OneToOne
 	private Gerente gerente;
 	
 	@OneToMany(mappedBy="departamento")
-	private List<Usuario> usuarios;
+	private List<Usuario> listaUsuario;
 
 	public Integer getId() {
 		return id;
@@ -39,8 +41,6 @@ public class Departamento {
 		this.descripcion = descripcion;
 	}
 
-
-
 	public Gerente getGerente() {
 		return gerente;
 	}
@@ -49,20 +49,23 @@ public class Departamento {
 		this.gerente = gerente;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
 	}
 
 	@Override
 	public String toString() {
-		return "Departamento [id=" + id + ", descripcion=" + descripcion + ", gerente=" + gerente + ", usuarios="
-				+ usuarios + ", toString()=" + super.toString() + "]";
+		return "Departamento [id=" + id + ", descripcion=" + descripcion + ", gerente=" + gerente + ", listaUsuario="
+				+ listaUsuario + "]";
 	}
+	
+	
+	
+	
+	
 
-	
-	
 }

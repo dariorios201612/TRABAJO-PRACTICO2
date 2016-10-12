@@ -6,14 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 @Entity
 public class Usuario {
+
 	
 	@Id
 	private String login;
-	
 	private String name;
-	
 	private String password;
 	
 	@OneToMany(mappedBy="usuario")
@@ -67,6 +67,7 @@ public class Usuario {
 		return "Usuario [login=" + login + ", name=" + name + ", password=" + password + ", pedidos=" + pedidos
 				+ ", departamento=" + departamento + "]";
 	}
-	
-	
-}
+
+		}
+
+

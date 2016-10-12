@@ -4,27 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 @Entity
 public class ItemPedido {
+	
 	@Id
 	@GeneratedValue
-	private Integer id;
-	
+	private Long id;
 	private int cantidadProducto;
-	
 	private double subTotal;
 	
 	@ManyToOne
-	private Pedido pedido;
+	private Producto producto;
 	
 	@ManyToOne
-	private Producto producto;
+	private Pedido pedido;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -44,14 +44,6 @@ public class ItemPedido {
 		this.subTotal = subTotal;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
 	public Producto getProducto() {
 		return producto;
 	}
@@ -60,11 +52,22 @@ public class ItemPedido {
 		this.producto = producto;
 	}
 
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemPedido [id=" + id + ", cantidadProducto=" + cantidadProducto + ", subTotal=" + subTotal
-				+ ", pedido=" + pedido + ", producto=" + producto + "]";
+				+ ", producto=" + producto + ", pedido=" + pedido + "]";
 	}
+
+	
+
 	
 	
 }
