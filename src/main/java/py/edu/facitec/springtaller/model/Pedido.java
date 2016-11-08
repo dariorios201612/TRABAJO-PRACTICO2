@@ -9,108 +9,65 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import py.edu.facitec.springtaller.model.general.General;
 
 @Entity
-public class Pedido {
+public class Pedido extends General{
 	
-	@Id
-	@GeneratedValue
-	private Long id;
 	private Date fechaToma;
 	private Date fechaEntrega;
-	private double total;
-	
-	
-	//anotacion que sirve que indicada una relacion de mucho para uno
-	//posibilita la cracion la clave foranea
+	private Double total;
+	//indica que es de uno a muchos y facilita la creacion de la clave foranea
 	@ManyToOne
 	private Cliente cliente;
-	
 	@ManyToOne
 	private Usuario usuario;
 	
-	
+	@JsonIdentityReference   // para que la lista sea importante 
 	@OneToMany(mappedBy="pedido")
-	private List<ItemPedido>itemPedidos;
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
+	private List<ItemPedido> itemPedidos;
+	
+	
 	public Date getFechaToma() {
 		return fechaToma;
 	}
-
-
 	public void setFechaToma(Date fechaToma) {
 		this.fechaToma = fechaToma;
 	}
-
-
 	public Date getFechaEntrega() {
 		return fechaEntrega;
 	}
-
-
 	public void setFechaEntrega(Date fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
-
-
-	public double getTotal() {
+	public Double getTotal() {
 		return total;
 	}
-
-
-	public void setTotal(double total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
-
-
 	public Cliente getCliente() {
 		return cliente;
 	}
-
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-
 	public List<ItemPedido> getItemPedidos() {
 		return itemPedidos;
 	}
-
-
 	public void setItemPedidos(List<ItemPedido> itemPedidos) {
 		this.itemPedidos = itemPedidos;
 	}
+	
+	
 
-
-	@Override
-	public String toString() {
-		return "Pedido [id=" + id + ", fechaToma=" + fechaToma + ", fechaEntrega=" + fechaEntrega + ", total=" + total
-				+ ", cliente=" + cliente + ", usuario=" + usuario + ", itemPedidos=" + itemPedidos + "]";
-	}
-	
-	
-	
-	
-	}
+}

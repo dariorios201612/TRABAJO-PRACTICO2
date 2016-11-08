@@ -13,68 +13,54 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import py.edu.facitec.springtaller.dao.ProductoDAO;
+import py.edu.facitec.springtaller.dao.ProductoDao;
 import py.edu.facitec.springtaller.model.Producto;
 
-
-@Transactional 
-@RequestMapping("/producto") 
 @RestController
+@Transactional
+@RequestMapping("/producto")
 public class ProductoController {
+	@Autowired
+	private ProductoDao productoDao;
 	
-	@Autowired 
- 	private ProductoDAO productoDAO; 
- 
+	//**************Primer Metodo - registra un producto************
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)										  
+											//Anotacion que carga los datos al objeto producto
+	public ResponseEntity<Producto> registrar(@RequestBody Producto producto){
+		productoDao.guardar(producto, producto.getId());
+		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+	}
 	
-	//metodo Guardar
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE ,produces=MediaType.APPLICATION_JSON_VALUE)
-	
-												//anotacion que carga datos del objeto producto
-	public  ResponseEntity<Producto> registrar(@RequestBody Producto producto){ 
- 	 		productoDAO.guardar(producto, producto.getId()); 
- 	 	return new ResponseEntity<Producto>(producto,HttpStatus.OK); 
- 	} 
-	
-	
-	//obtiene lista de producto
-	//este metodo solo preduce json xq no tiene parametros
+	//**************Segundo Metodo - Obtiene la lista de productos************
 	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Producto>> buscarTodos(){
-		
-		//obtenemos la lista de producto
-		List<Producto> productos= productoDAO.buscarTodos();
-		
+		List<Producto> productos= productoDao.buscarTodos();
 		return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
 	}
 	
-	//buscar un producto por id
-	@RequestMapping(method=RequestMethod.GET, value="{id}", consumes=MediaType.APPLICATION_JSON_VALUE ,produces=MediaType.APPLICATION_JSON_VALUE)
+	//*************Tercer Metodo - Busca por ID*******************
+	@RequestMapping(method=RequestMethod.GET, value="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Producto> buscarPorId(@PathVariable Integer id){
-		
-		Producto productoBuscado= productoDAO.buscar(id);
-		
+		Producto productoBuscado= productoDao.buscar(id);
 		return new ResponseEntity<Producto>(productoBuscado, HttpStatus.OK);
 	}
 	
-	
-	//metodo para eliminar
-	@RequestMapping(method=RequestMethod.DELETE, value="{id}", consumes=MediaType.APPLICATION_JSON_VALUE ,produces=MediaType.APPLICATION_JSON_VALUE)
+	//*************Tercer Metodo - Elimina por ID*******************
+	@RequestMapping(method=RequestMethod.DELETE, value="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Producto> eliminar(@PathVariable Integer id){
-		
-		Producto productoEliminar= productoDAO.buscar(id);
-		
-		
-		if(productoEliminar==null){
-			return new ResponseEntity<>(productoEliminar, HttpStatus.NOT_FOUND);
+		Producto productoAElimminar= productoDao.buscar(id);
+		if (productoAElimminar==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
-		productoDAO.eliminar(productoEliminar);
-		
+		productoDao.eliminar(productoAElimminar);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-} 
+	@RequestMapping(value="/form", method=RequestMethod.GET)
+	public ModelAndView formulario(){
+		return new ModelAndView("/productos/form");
+	}
 
-
-
+}

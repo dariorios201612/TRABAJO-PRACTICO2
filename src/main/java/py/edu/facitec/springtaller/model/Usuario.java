@@ -9,18 +9,17 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
-
 	
 	@Id
 	private String login;
 	private String name;
 	private String password;
 	
-	@OneToMany(mappedBy="usuario")
-	private List<Pedido> pedidos;
-	
 	@ManyToOne
 	private Departamento departamento;
+	
+	@OneToMany(mappedBy="usuario")
+	private List<Pedido> pedidos;
 
 	public String getLogin() {
 		return login;
@@ -46,14 +45,6 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
 	public Departamento getDepartamento() {
 		return departamento;
 	}
@@ -62,12 +53,20 @@ public class Usuario {
 		this.departamento = departamento;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [login=" + login + ", name=" + name + ", password=" + password + ", pedidos=" + pedidos
-				+ ", departamento=" + departamento + "]";
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-		}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
+	@Override
+	public String toString() {
+		return "Usuario [login=" + login + ", name=" + name + ", password=" + password + ", departamento="
+				+ departamento + ", pedidos=" + pedidos + "]";
+	}
+	
+	
 
+}
